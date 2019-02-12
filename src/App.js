@@ -77,19 +77,16 @@ class App extends Component {
           <h4>Order details</h4>
           <Order items={this.state.items}
                  onRemoveItem={this.removeItem}
+                 isGetTotal={this.getTotal()}
           />
-            <hr/>
-          <div className="TotalPrice">Total Price:<b> {this.getTotal()} KGS</b></div>
         </div>
-
-
-          <div className="Add_items">
-            <h4>Add items</h4>
-              <Items
-                  onAddItem={this.addItem}
-                  availableItems = {availableItems}
-              />
-          </div>
+      <div className="Add_items">
+         <h4>Add items</h4>
+         <Items
+           onAddItem={this.addItem}
+           availableItems = {availableItems}
+         />
+      </div>
       </div>
     );
   }
