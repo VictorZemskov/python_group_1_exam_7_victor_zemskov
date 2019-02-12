@@ -5,7 +5,7 @@ import './App.css';
 import Items from "./Items/Items";
 import Order from  "./Order/Order";
 
-const availableIngredients = {
+const availableItems = {
     hamburger: {price: 80, label: 'Hamburger'},
     cheeseburger: {price: 90, label: 'Cheeseburger'},
     fries: {price: 45, label: 'Fries'},
@@ -16,7 +16,7 @@ const availableIngredients = {
 
 class App extends Component {
   state = {
-    ingredients: {
+    items: {
       hamburger: {count: 0, total: 0},
       cheeseburger: {count: 0, total: 0},
       fries: {count: 0, total: 0},
@@ -26,57 +26,57 @@ class App extends Component {
     }
   };
 
-  addIngredient = (name) => {
-    let ingredient = {...this.state.ingredients[name]};
-    ingredient.count += 1;
-    ingredient.total = ingredient.count * availableIngredients[name].price;
+  addItem = (name) => {
+    let item = {...this.state.items[name]};
+    item.count += 1;
+    item.total = item.count * availableItems[name].price;
 
-    let ingredients = {...this.state.ingredients};
-    ingredients[name] = ingredient;
+    let items = {...this.state.items};
+    items[name] = item;
 
     let state = {...this.state};
-    state.ingredients = ingredients;
+    state.items = items;
 
     this.setState(state);
   };
 
-  removeIngredient = (name) => {
-    let ingredient = {...this.state.ingredients[name]};
-    if(ingredient.count > 0) {
-      ingredient.count -= 1;
+  removeItem = (name) => {
+    let item = {...this.state.items[name]};
+    if(item.count > 0) {
+      item.count -= 1;
     }
-    ingredient.total = ingredient.count * availableIngredients[name].price;
+    item.total = item.count * availableItems[name].price;
 
 
-    let ingredients = {...this.state.ingredients};
-    ingredients[name] = ingredient;
+    let items = {...this.state.items};
+    items[name] = item;
 
     let state = {...this.state};
-    state.ingredients = ingredients;
+    state.items = items;
 
     this.setState(state);
   };
 
   getTotal = () => {
-    let result = this.state.ingredients.hamburger.total +
-                 this.state.ingredients.cheeseburger.total +
-                 this.state.ingredients.fries.total +
-                 this.state.ingredients.coffee.total +
-                 this.state.ingredients.tea.total +
-                 this.state.ingredients.cola.total;
+    let result = this.state.items.hamburger.total +
+                 this.state.items.cheeseburger.total +
+                 this.state.items.fries.total +
+                 this.state.items.coffee.total +
+                 this.state.items.tea.total +
+                 this.state.items.cola.total;
 
     return result;
   };
 
-  
+
 
   render() {
     return (
       <div className="App">
         <div className="Order_details">
           <h4>Order details</h4>
-          <Order ingredients={this.state.ingredients}
-                 onRemoveIngredient={this.removeIngredient}
+          <Order items={this.state.items}
+                 onRemoveItem={this.removeItem}
           />
             <hr/>
           <div className="TotalPrice">Total Price:<b> {this.getTotal()} KGS</b></div>
@@ -86,8 +86,8 @@ class App extends Component {
           <div className="Add_items">
             <h4>Add items</h4>
               <Items
-                  onAddIngredient={this.addIngredient}
-                  ingredients = {availableIngredients}
+                  onAddItem={this.addItem}
+                  availableItems = {availableItems}
               />
           </div>
       </div>
